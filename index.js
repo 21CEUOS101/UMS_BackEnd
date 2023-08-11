@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 3001;
 const mongoose = require("mongoose");
-const url = "mongodb+srv://Ashish:6tmC5FNA8T5IcDiJ@dms.donboph.mongodb.net/DMS";
+const url = "mongodb://localhost:27017/UMS";
 
 mongoose.connect(url, { useNewUrlParser: true });
 
