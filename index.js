@@ -28,6 +28,7 @@ app.use("/tpo", authUser("tpo") , require("./Routers/tpoRouter"));
 app.use("/tto", authUser("tto") , require("./Routers/ttoRouter"));
 app.use("/admin", authUser("admin") , require("./Routers/adminRouter"));
 app.use("/hod", authUser("hod") , require("./Routers/hodRouter"));
+app.use('/email', require('./Routers/mailRouter')); // Add this line for email router
 
 
 app.listen(PORT, () => {
