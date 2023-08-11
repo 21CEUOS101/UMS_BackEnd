@@ -1,27 +1,53 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 
 const LoginRouter = express.Router();
 
 const LoginModel = require('../Models/Login_Auth/LoginModel');
 
 LoginRouter.post('/', async (req, res) => {
-
     const { user_id, role, password } = req.body;
 
     try {
-        const login = LoginModel.find({ user_id: user_id });
+        // Find the user based on the provided user_id
+        const login = await LoginModel.findOne({ user_id });
+
         if (login) {
+            // Compare the provided password with the hashed password from the database
             const isMatch = await bcrypt.compare(password, login.password);
+
             if (isMatch) {
-                res.json({ msg: 'Login Successful' , isLoggedIn : true , role : role});
+                // Login successful
+                res.json({
+                    status: 'success',
+                    message: 'Login successful',
+                    isLoggedIn: true,
+                    role: login.role,  // Assuming the user's role is stored in the database
+                });
             } else {
-                res.json({ msg: 'Invalid Credentials' , isLoggedIn : false });
+                // Invalid credentials
+                res.json({
+                    status: 'error',
+                    message: 'Invalid credentials',
+                    isLoggedIn: false,
+                });
             }
         } else {
-            res.json({ msg: 'Invalid Credentials' , isLoggedIn : false });
+            // User not found (Invalid credentials)
+            res.json({
+                status: 'error',
+                message: 'Invalid credentials',
+                isLoggedIn: false,
+            });
         }
     } catch (error) {
-        res.json({ msg: 'Server Error' , isLoggedIn : false });
+        // Server error
+        res.json({
+            status: 'error',
+            message: 'Server error',
+            isLoggedIn: false,
+        });
     }
-}
-);
+});
+
+module.exports = LoginRouter;
