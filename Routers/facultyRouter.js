@@ -9,7 +9,7 @@ const StudentOtherDetails = require("../Models/StudentModel/StudentOtherDetails"
 const StudentFeesInfo = require("../Models/StudentModel/StudentFeesInfo");
 const StudentAcademicInfo = require("../Models/StudentModel/StudentAcademicInfo");
 const StudentContactInfo = require("../Models/StudentModel/StudentContactInfo");
-
+const MakeAnnouncement = require("../Functionalities/MakeAnnouncement");
 // Get all faculty details
 
 router.get('/getAllFacultyDetails', async (req, res) => {
@@ -397,5 +397,5 @@ router.patch("/updateStudentExamResult", async (req, res) => {
     }
 }
 );
-
+router.use("/", require("../Functionalities/MakeAnnouncement"));
 module.exports = router;

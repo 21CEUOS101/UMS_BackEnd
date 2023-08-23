@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Placement_CompanyDetails = require('../Models/ComponentModel/Placement_CompanyDetails');
 const TPODetails = require("../Models/TPODetails");
-
+const MakeAnnouncement = require("../Functionalities/MakeAnnouncement");
 // Get specific TPO details
 
 router.get('/getSpecificTPODetails/:tpo_id', async (req, res) => {
@@ -160,5 +160,5 @@ router.delete('/deletePlacementCompanyDetails/:placement_company_id', async (req
     }
 }
 );
-
+router.use("/", require("../Functionalities/MakeAnnouncement"));
 module.exports = router;

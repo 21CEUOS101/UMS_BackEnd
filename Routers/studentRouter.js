@@ -11,7 +11,6 @@ const StudentFeesInfo = require("../Models/StudentModel/StudentFeesInfo");
 const StudentAcademicInfo = require("../Models/StudentModel/StudentAcademicInfo");
 const StudentContactInfo = require("../Models/StudentModel/StudentContactInfo");
 const TimeTableBlock = require("../Models/ComponentModel/TimeTableBlock");
-
 router.use(express.json());
 
 // Get Student by Roll Number
@@ -403,7 +402,7 @@ router.get('/getAllBlocksByDepartment/:time_table_department', async (req, res) 
     }
 }
 );
-
+router.use("/", require("../Functionalities/MakeAnnouncement"));
 
 module.exports = router;
 

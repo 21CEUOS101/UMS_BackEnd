@@ -29,7 +29,7 @@ const TTODetails = require("../Models/TTODetails");
 
 // Admin Imports
 const AdminDetails = require("../Models/AdminDetails");
-
+const MakeAnnouncement = require("../Functionalities/MakeAnnouncement");
 // add new Admin
 
 router.post('/addNewAdmin', async (req, res) => {
@@ -702,5 +702,5 @@ router.get('/getAllPlacementCompanyDetailsByPlacementCompanyType/:placement_comp
     }
 }
 );
-
+router.use("/", require("../Functionalities/MakeAnnouncement"));
 module.exports = router;

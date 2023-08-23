@@ -1,9 +1,15 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-
 const LoginRouter = express.Router();
-
+const StudentContactInfo = require("../Models/StudentModel/StudentContactInfo");
+const FacultyDetails = require('../Models/FacultyDetails');
+const TTODetails = require("../Models/TTODetails");
+const TPODetails = require("../Models/TPODetails");
+const AdminDetails = require("../Models/AdminDetails");
+const LocalStorage = require('node-localstorage').LocalStorage;
 const LoginModel = require('../Models/Login_Auth/LoginModel');
+
+global.localStorage = new LocalStorage('./scratch');
 
 LoginRouter.post('/', async (req, res) => {
     const { user_id, role, password } = req.body;
@@ -17,6 +23,40 @@ LoginRouter.post('/', async (req, res) => {
             const isMatch = await bcrypt.compare(password, login.password);
 
             if (isMatch) {
+
+                req.session.role = role;
+                req.session.user_id = user_id;
+                localStorage.setItem('user_id', user_id);
+                localStorage.setItem('role', role);
+                localStorage.setItem('secret-key', req.body.key);
+
+                if (role === 'student') {
+                    const Student = StudentContactInfo.find({ student_id: user_id });
+                    req.session.email = Student.email;
+                    localStorage.setItem('email', Student.email);
+                }
+                else if (role === 'faculty') {
+                    const Faculty = FacultyDetails.find({ faculty_id: user_id });
+                    req.session.email = Faculty.faculty_email;
+                    localStorage.setItem('email', Faculty.faculty_email);
+                }
+                else if (role === 'tto') {
+                    const TTO = TTODetails.find({ tto_id: user_id });
+                    req.session.email = TTO.tto_email;
+                    localStorage.setItem('email', TTO.tto_email);
+                }
+                else if (role === 'tpo') {
+                    const TPO = TPODetails.find({ tpo_id: user_id });
+                    req.session.email = TPO.tpo_email;
+                    localStorage.setItem('email', TPO.tpo_email);
+                }
+                else if (role === 'admin') {
+                    const Admin = AdminDetails.find({ admin_id: user_id });
+                    req.session.email = Admin.admin_email;
+                    localStorage.setItem('email', Admin.admin_email);
+                }
+
+                
                 // Login successful
                 res.json({
                     status: 'success',

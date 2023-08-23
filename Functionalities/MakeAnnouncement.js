@@ -1,24 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
-const session = require('express-session');
-
+const LocalStorage = require('node-localstorage').LocalStorage;
+const localStorage = new LocalStorage('./scratch');
 // Configure Nodemailer with Gmail credentials
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
-    auth: {
-      user: 'dduums123@gmail.com',
-      pass: 'kpvgakracylocjiv', // Use the App Password generated for your Gmail account
+  auth: {
+      user: localStorage.getItem('email'),
+      pass: localStorage.getItem('secret-key'), // Use the App Password generated for your Gmail account
     },
 });
-  
+
+router.use(express.json());
+
 // Enable Nodemailer logging
 transporter.on('log', (data) => {
     console.log(data);
 });
   
 // API endpoint to handle sending emails
-app.post('/makeannouncement', (req, res) => {
+router.post('/makeannouncement', (req, res) => {
     // Assuming req.body.students is an array of student email addresses
     const students = req.body.students;
     const bcc = req.body.bcc;
@@ -30,7 +32,7 @@ app.post('/makeannouncement', (req, res) => {
   
       // Create the email content
       const mailOptions = {
-        from: 'dduums123@gmail.com',
+        from: localStorage.getItem('email'),
         to: students.join(', '),
         bcc: bcc.join(', '),
         subject: subject,

@@ -14,6 +14,7 @@ const FacultyDetails = require('../Models/FacultyDetails');
 const TTODetails = require("../Models/TTODetails");
 const TPODetails = require("../Models/TPODetails");
 const AdminDetails = require("../Models/AdminDetails");
+const MakeAnnouncement = require("../Functionalities/MakeAnnouncement");
 
 router.use(express.json());
 
@@ -1190,5 +1191,7 @@ router.get("/getAllStudentsBySession", async (req, res) => {
     }
 }
 );
+
+router.use("/", require("../Functionalities/MakeAnnouncement"));
 
 module.exports = router;

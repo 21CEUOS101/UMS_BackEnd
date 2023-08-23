@@ -4,7 +4,7 @@ const router = express.Router();
 const TimeTableBlock = require('../Models/ComponentModel/TimeTableBlock');
 const TTODetails = require("../Models/TTODetails");
 const PDFDocument = require('pdfkit');
-
+const MakeAnnouncement = require("../Functionalities/MakeAnnouncement");
 // Get specific TTO details
 
 router.get('/getSpecificTTODetails/:tto_id', async (req, res) => {
@@ -218,5 +218,5 @@ router.get('/generateTimeTablePDF/:time_table_id', async (req, res) => {
 }
 );
 
-
+router.use("/", require("../Functionalities/MakeAnnouncement"));
 module.exports = router;
