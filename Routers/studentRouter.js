@@ -13,6 +13,8 @@ const StudentContactInfo = require("../Models/StudentModel/StudentContactInfo");
 const TimeTableBlock = require("../Models/ComponentModel/TimeTableBlock");
 router.use(express.json());
 
+router.use("/announcement", require("../Functionalities/MakeAnnouncement"));
+
 // Get Student by Roll Number
 
 router.get("/getStudentByRollNumber/:roll_number", async (req, res) => {
@@ -259,7 +261,6 @@ router.get("/getAllStudents", async (req, res) => {
 }
 );
 
-
 // Get All Students by session
 
 router.get("/getAllStudentsBySession", async (req, res) => {
@@ -402,7 +403,6 @@ router.get('/getAllBlocksByDepartment/:time_table_department', async (req, res) 
     }
 }
 );
-router.use("/", require("../Functionalities/MakeAnnouncement"));
 
 module.exports = router;
 

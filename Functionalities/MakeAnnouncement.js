@@ -20,7 +20,7 @@ transporter.on('log', (data) => {
 });
   
 // API endpoint to handle sending emails
-router.post('/makeannouncement', (req, res) => {
+router.post('/', (req, res) => {
     // Assuming req.body.students is an array of student email addresses
     const students = req.body.students;
     const bcc = req.body.bcc;
@@ -53,5 +53,6 @@ router.post('/makeannouncement', (req, res) => {
     }
 });
   
+module.exports = router;
 // Session - userid , role , email
 // Cookies - userid , password
