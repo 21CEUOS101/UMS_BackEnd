@@ -1,6 +1,6 @@
 const db = require('mongoose');
 
-const StudentSchema = db.Schema({
+const StudentDetailsSchema = db.Schema({
     reporting_date: {
         type: String,
         required: true,
@@ -97,4 +97,4 @@ const StudentSchema = db.Schema({
     },
 });
 
-module.exports = db.model('Student', StudentSchema);
+module.exports = db.model('StudentDetails', StudentDetailsSchema);

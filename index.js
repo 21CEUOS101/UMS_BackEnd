@@ -2,15 +2,15 @@ const express = require('express');
 const app = express();
 const PORT = 3001;
 const mongoose = require("mongoose");
-const url = "mongodb://localhost:27017/UMS";
+const url = "mongodb+srv://Ashish:6tmC5FNA8T5IcDiJ@dms.donboph.mongodb.net/";
 
 mongoose.connect(url, { useNewUrlParser: true });
 
 app.use(express.json());
 
 const authUser = (role) => {
-    return function (req, res, next){
-        if (req.session.role !== role) {
+    return (req, res, next) => {
+        if (req.body.role !== role) {
             res.status(401);
             res.send("Not allowed");
         }

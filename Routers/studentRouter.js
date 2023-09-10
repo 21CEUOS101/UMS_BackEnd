@@ -254,9 +254,10 @@ router.get("/getAllStudents", async (req, res) => {
         });
     }
     catch (err) {
-        res.json({
-            message: err
-        });
+        res.status(500).json({
+            message: "Error getting students details.",
+            error: err.message,
+          });
     }
 }
 );
