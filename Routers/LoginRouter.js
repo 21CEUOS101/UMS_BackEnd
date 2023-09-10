@@ -12,7 +12,7 @@ const LoginModel = require('../Models/Login_Auth/LoginModel');
 global.localStorage = new LocalStorage('./scratch');
 
 LoginRouter.post('/', async (req, res) => {
-    const { user_id, role, password } = req.body;
+    const { user_id, role, password } = req.query;
 
     try {
         // Find the user based on the provided user_id
