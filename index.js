@@ -1,19 +1,21 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const PORT = 3001;
 const mongoose = require("mongoose");
 const url = "mongodb+srv://Ashish:6tmC5FNA8T5IcDiJ@dms.donboph.mongodb.net/";
 
 mongoose.connect(url, { useNewUrlParser: true });
 
+app.use(cors());
 app.use(express.json());
 
 const authUser = (role) => {
     return (req, res, next) => {
-        if (req.query.role !== role) {
-            res.status(401);
-            res.send("Not allowed");
-        }
+        // if (req.query.role !== role) {
+        //     res.status(401);
+        //     res.send("Not allowed");
+        // }
         next();
     };
 };
