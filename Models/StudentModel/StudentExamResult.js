@@ -210,4 +210,6 @@ const StudentExamResult = db.Schema({
     }
 });
 
+module.exports = db.model('StudentExamResult', StudentExamResult);
+
 
