@@ -20,14 +20,12 @@ router.use(express.json());
 // Admin Section ---------------------------------------------
 
 // Get Admin Details
-
 router.get('/getAdminDetails/:admin_id', async (req, res) => {
     const response = await AdminService.getAdminDetailsById(req.params.admin_id);
     res.json(response);
 });
 
 // Get all Admin Details
-
 router.get('/getAllAdminDetails', async (req, res) => {
 
     try {
@@ -36,8 +34,7 @@ router.get('/getAllAdminDetails', async (req, res) => {
     } catch (err) {
         res.json({ message: err });
     }
-}
-);
+});
 
 // TPO Section ---------------------------------------------
 
