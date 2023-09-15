@@ -119,6 +119,22 @@ router.get('/getHODDetails/:hod_id', async (req, res) => {
 }
 );
 
+// Get All HOD details
+
+router.get('/getAllHOD', async (req, res) => {
+
+    try {
+        const hodDetails = await HODDetails.find();
+        res.json(hodDetails);
+    }
+    catch (err) {
+        res.json({
+            message: err
+        });
+    }
+}
+);
+
 // Update HOD details by id
 
 router.patch('/updateHODDetails/:hod_id', async (req, res) => {
