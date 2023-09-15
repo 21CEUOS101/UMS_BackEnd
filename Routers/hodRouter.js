@@ -1,7 +1,5 @@
 const express = require('express');
-
 const router = express.Router();
-
 const HODDetails = require('../Models/HODDetails');
 
 // Student Imports
@@ -12,26 +10,20 @@ const StudentOtherDetails = require("../Models/StudentModel/StudentOtherDetails"
 const StudentFeesInfo = require("../Models/StudentModel/StudentFeesInfo");
 const StudentAcademicInfo = require("../Models/StudentModel/StudentAcademicInfo");
 const StudentContactInfo = require("../Models/StudentModel/StudentContactInfo");
-
 // Faculty Imports
 const FacultyDetails = require('../Models/FacultyDetails');
-
 // Course Imports
 const CourseDetails = require("../Models/StudentModel/CourseDetails");
-
 // Placement Imports
 const Placement_CompanyDetails = require('../Models/ComponentModel/Placement_CompanyDetails');
 const TPODetails = require("../Models/TPODetails");
-
 // TTO Imports
 const TimeTableBlock = require('../Models/ComponentModel/TimeTableBlock');
 const TTODetails = require("../Models/TTODetails");
-
 // Admin Imports
 const AdminDetails = require("../Models/AdminDetails");
-const MakeAnnouncement = require("../Functionalities/MakeAnnouncement");
-// add new Admin
 
+// add new Admin
 router.post('/addNewAdmin', async (req, res) => {
 
     try {
@@ -40,7 +32,6 @@ router.post('/addNewAdmin', async (req, res) => {
             admin_name: req.body.admin_name,
             admin_email: req.body.admin_email,
             admin_mobile_number: req.body.admin_mobile_number,
-            admin_password: req.body.admin_password,
             admin_designation: req.body.admin_designation,
             admin_department: req.body.admin_department
         });
@@ -67,7 +58,6 @@ router.patch('/updateAdmin/:admin_id', async (req, res) => {
                     admin_name: req.body.admin_name,
                     admin_email: req.body.admin_email,
                     admin_mobile_number: req.body.admin_mobile_number,
-                    admin_password: req.body.admin_password,
                     admin_designation: req.body.admin_designation,
                     admin_department: req.body.admin_department
                 }

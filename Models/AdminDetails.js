@@ -13,10 +13,6 @@ const AdminDetailsSchema = db.Schema({
         type: String,
         required: true,
     },
-    admin_password: {
-        type: String,
-        required: true,
-    },
     admin_mobile_number: {
         type: String,
         required: true,
