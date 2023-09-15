@@ -1,7 +1,5 @@
 const express = require("express");
-
 const router = express.Router();
-
 const StudentDetails = require("../Models/StudentModel/StudentDetails");
 const StudentGuardianInfo = require("../Models/StudentModel/StudentGuardianInfo");
 const StudentExamResult = require("../Models/StudentModel/StudentExamResult");
@@ -15,6 +13,7 @@ const TTODetails = require("../Models/TTODetails");
 const TPODetails = require("../Models/TPODetails");
 const AdminDetails = require("../Models/AdminDetails");
 const MakeAnnouncement = require("../Functionalities/MakeAnnouncement");
+const AdminService = require("../Services/Admin_Service");
 
 router.use(express.json());
 
@@ -23,15 +22,9 @@ router.use(express.json());
 // Get Admin Details
 
 router.get('/getAdminDetails/:admin_id', async (req, res) => {
-
-    try {
-        const adminDetails = await AdminDetails.findOne({ admin_id: req.params.admin_id });
-        res.json(adminDetails);
-    } catch (err) {
-        res.json({ message: err });
-    }
-}
-);
+    const response = await AdminService.getAdminDetailsById(req.params.admin_id);
+    res.json(response);
+});
 
 // Get all Admin Details
 
