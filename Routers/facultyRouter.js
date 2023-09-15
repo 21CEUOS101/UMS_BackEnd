@@ -57,8 +57,7 @@ router.get('/getAllFacultyDetailsByDesignation/:faculty_designation', async (req
     } catch (err) {
         res.json({ message: err });
     }
-}
-);
+});
 
 // Get all faculty details by department and designation
 
