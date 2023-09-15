@@ -1,6 +1,6 @@
 const db = require('mongoose');
 
-const Placement_CompanyDetailsSchema = mongoose.Schema({
+const Placement_CompanyDetailsSchema = db.Schema({
 
     placement_company_id: {
         type: String,
