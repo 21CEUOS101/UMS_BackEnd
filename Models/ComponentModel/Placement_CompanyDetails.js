@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const db = require('mongoose');
 
 const Placement_CompanyDetailsSchema = mongoose.Schema({
 
@@ -64,3 +64,5 @@ const Placement_CompanyDetailsSchema = mongoose.Schema({
     },
     
 });
+
+module.exports = db.model('Placement_CompanyDetailsSchema', Placement_CompanyDetailsSchema);

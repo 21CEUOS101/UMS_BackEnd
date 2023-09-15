@@ -26,3 +26,5 @@ const AdminDetailsSchema = db.Schema({
         required: true,
     },
 });
+
+module.exports = db.model('AdminDetailsSchema', AdminDetailsSchema);

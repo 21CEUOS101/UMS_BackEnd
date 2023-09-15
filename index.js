@@ -12,7 +12,7 @@ app.use(express.json());
 
 const authUser = (role) => {
     return (req, res, next) => {
-        // if (req.query.role !== role) {
+        // if (req.body.role !== role) {
         //     res.status(401);
         //     res.send("Not allowed");
         // }
