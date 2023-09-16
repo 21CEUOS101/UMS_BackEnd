@@ -19,7 +19,7 @@ const authUser = (role) => {
         next();
     };
 };
-
+app.use("/login", require("./Routers/LoginRouter"));
 // Set up other routes based on user roles (similar to your code)
 app.use("/student", authUser("student"), require("./Routers/studentRouter"));
 app.use("/faculty", authUser("faculty"), require("./Routers/facultyRouter"));
