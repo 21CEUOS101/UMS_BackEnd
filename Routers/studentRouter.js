@@ -321,6 +321,23 @@ router.get("/getCourseForCurrentSemester", async (req, res) => {
 }
 );
 
+// Ger All Course Details
+
+router.get("/getAllCourseDetails", async (req, res) => {
+    try {
+        const courseDetails = await CourseDetails.find();
+        res.json({
+            courseDetails: courseDetails
+        });
+    }
+    catch (err) {
+        res.json({
+            message: err
+        });
+    }
+}
+);
+
 
 // Get all time table block details
 
