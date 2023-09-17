@@ -6,59 +6,59 @@ const StudentFeesInfoSchema = db.Schema({
         required: true,
     },
     txn_date: {
-        type: [String],
+        type: String,
         required: true,
     },
     voucher_number: {
-        type: [String],
+        type: String,
         required: true,
     },
     batch_year: {
-        type: [String],
+        type: String,
         required: true,
     },
     session_no: {
-        type: [Number],
+        type: String,
         required: true,
     },
     admission_type: {
-        type: [String],
+        type: String,
         required: true,
     },
     fees_amount: {
-        type: [Number],
+        type: String,
         required: true,
     },
     txn_status: {
-        type: [String],
+        type: String,
         required: true,
     },
     payment_mode: {
-        type: [String],
+        type: String,
         required: true,
     },
     cheque_number: {
-        type: [String],
+        type: String,
         required: false,
     },
     cheque_date: {
-        type: [String],
+        type: String,
         required: false,
     },
     bank_name: {
-        type: [String],
+        type: String,
         required: false,
     },
     paid_date: {
-        type: [String],
+        type: String,
         required: true,
     },
     reconsile_date: {
-        type: [String],
+        type: String,
         required: false,
     },
     reconsile_number: {
-        type: [String],
+        type: String,
         required: false,
     },
 });
