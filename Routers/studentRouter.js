@@ -21,7 +21,7 @@ router.get("/getStudentByRollNumber/:roll_number", async (req, res) => {
     try {
         const studentDetails = await StudentDetails.find(
             {
-                student_roll_number: req.params.roll_number
+                student_id: req.params.roll_number
             }
         );
         const studentGuardianInfo = await StudentGuardianInfo.find(
