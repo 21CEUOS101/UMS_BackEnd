@@ -27,6 +27,14 @@ const AdminDetails = require("../Models/AdminDetails");
 router.post('/addNewAdmin', async (req, res) => {
 
     try {
+
+        const check = AdminDetails.find({ admin_id: req.body.admin_id });
+        if (check !== null && check.length > 0) {
+            res.json({
+                message: "Admin already exists"
+            });
+            return;
+        }
         const adminDetails = new AdminDetails({
             admin_id: req.body.admin_id,
             admin_name: req.body.admin_name,
@@ -134,6 +142,43 @@ router.get('/getAllHOD', async (req, res) => {
     }
 }
 );
+
+// Create HOD details
+
+router.post('/addNewHOD', async (req, res) => {
+
+    try {
+
+        const check = HODDetails.find({ hod_id: req.body.hod_id });
+        if (check !== null && req.body !== undefined) {
+            console.log(req.body);
+            res.json({
+                message: "HOD already exists"
+            });
+            return;
+        }
+        const hodDetails = new HODDetails({
+            hod_id: req.body.hod_id,
+            hod_name: req.body.hod_name,
+            hod_email: req.body.hod_email,
+            hod_mobile_number: req.body.hod_mobile_number,
+            hod_experience: req.body.hod_experience,
+            hod_qualification: req.body.hod_qualification,
+            hod_designation: req.body.hod_designation,
+            hod_department: req.body.hod_department,
+        });
+        const savedHODDetails = await hodDetails.save();
+        res.json({
+            message: "HOD Details Added Successfully",
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.json({
+            message: err
+        });
+    }
+});
 
 // Update HOD details by id
 

@@ -43,6 +43,14 @@ router.get('/getAllAdminDetails', async (req, res) => {
 router.post("/createTPO", async (req, res) => {
 
     try {
+
+        const check = await TPODetails.find({ tpo_id: req.body.tpo_id });
+        if (check != null && check.length > 0) {
+            res.json({
+                message: "TPO already exists"
+            });
+            return;
+        }
         const tpoDetails = await TPODetails.create({
             tpo_id: req.body.tpo_id,
             tpo_name: req.body.tpo_name,
@@ -174,20 +182,31 @@ router.get('/getTPODetailsByDesignation/:tpo_designation', async (req, res) => {
 // Add a faculty details
 
 router.post('/addFacultyDetails', async (req, res) => {
-    const facultyDetails = new FacultyDetails({
-        faculty_id: req.body.faculty_id,
-        faculty_name: req.body.faculty_name,
-        faculty_email: req.body.faculty_email,
-        faculty_mobile_number: req.body.faculty_mobile_number,
-        faculty_experience: req.body.faculty_experience,
-        faculty_qualification: req.body.faculty_qualification,
-        faculty_designation: req.body.faculty_designation,
-        faculty_department: req.body.faculty_department,
-    });
+    
 
     try {
+        const check = await FacultyDetails.find({ faculty_id: req.body.faculty_id });
+        if (check != null && check.length > 0) {
+            console.log(check);
+            res.json({
+                message: "Faculty already exists"
+            });
+            return;
+        }
+        const facultyDetails = new FacultyDetails({
+            faculty_id: req.body.faculty_id,
+            faculty_name: req.body.faculty_name,
+            faculty_email: req.body.faculty_email,
+            faculty_mobile_number: req.body.faculty_mobile_number,
+            faculty_experience: req.body.faculty_experience,
+            faculty_qualification: req.body.faculty_qualification,
+            faculty_designation: req.body.faculty_designation,
+            faculty_department: req.body.faculty_department,
+        });
         const savedFacultyDetails = await facultyDetails.save();
-        res.json(savedFacultyDetails);
+        res.json({
+            message: "Faculty Details Created Successfully"
+        });
     } catch (err) {
         res.json({ message: err });
     }
@@ -304,6 +323,15 @@ router.post("/createTTO", async (req, res) => {
 
     try {
 
+        const check = await TTODetails.find({ tto_id: req.body.tto_id });
+
+        if (check != null && check.length > 0) {
+            res.json({
+                message: "TTO already exists"
+            });
+            return;
+        }
+
         await TTODetails.create({
             tto_id: req.body.tto_id,
             tto_name: req.body.tto_name,
@@ -412,6 +440,14 @@ router.get('/getAllTTODetails', async (req, res) => {
 router.post("/createCourseDetails", async (req, res) => {
 
     try {
+
+        const check = CourseDetails.find({ subject_code: req.body.subject_code });
+        if (check != null && check.length > 0) {
+            res.json({
+                message: "Course already exists"
+            });
+            return;
+        }
         await CourseDetails.create(
             {
                 subject_code: req.body.subject_code,
@@ -530,6 +566,13 @@ router.get("/getCourseForCurrentSemester", async (req, res) => {
 router.post("/createStudent", async (req, res) => {
 
     try {
+        const check = StudentDetails.find({ student_id: req.body.student_id });
+        if (check != null && check.length > 0) {
+            res.json({
+                message: "Student already exists"
+            });
+            return;
+        }
         await StudentDetails.create(
             {
                 reporting_date: req.body.reporting_date,
