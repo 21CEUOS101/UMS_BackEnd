@@ -567,15 +567,15 @@ router.get("/getCourseForCurrentSemester", async (req, res) => {
 // Get Course by Subject Code
 
 router.get("/getCourseBySubjectCode/:id", async (req, res) => {
+    console.log(req.params.id);
     try {
         const courseDetails = await CourseDetails.findOne(
             {
                 subject_code: req.params.id
             }
         );
-        res.json({
-            courseDetails: courseDetails
-        });
+        console.log(courseDetails);
+        res.json(courseDetails);
     }
     catch (err) {
         res.json({
