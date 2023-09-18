@@ -35,6 +35,12 @@ router.post('/addNewAdmin', async (req, res) => {
             });
             return;
         }
+        else if(AdminDetails === null || req.body === undefined)
+        {
+            res.json({
+                message: "Admin Details not found"
+            });
+        }
         const adminDetails = new AdminDetails({
             admin_id: req.body.admin_id,
             admin_name: req.body.admin_name,
@@ -44,7 +50,9 @@ router.post('/addNewAdmin', async (req, res) => {
             admin_department: req.body.admin_department
         });
         const savedAdminDetails = await adminDetails.save();
-        res.json(savedAdminDetails);
+        res.json({
+            message: "Admin Details Added Successfully",
+        });
     }
     catch (err) {
         res.json({
@@ -150,10 +158,16 @@ router.post('/addNewHOD', async (req, res) => {
     try {
 
         const check = HODDetails.find({ hod_id: req.body.hod_id });
-        if (check !== null && req.body !== undefined) {
+        if (check !== null && check.length > 0) {
             console.log(req.body);
             res.json({
                 message: "HOD already exists"
+            });
+            return;
+        }
+        else if (HODDetails === null || req.body === undefined) {
+            res.json({
+                message: "HOD Details not found"
             });
             return;
         }
