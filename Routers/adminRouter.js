@@ -564,6 +564,27 @@ router.get("/getCourseForCurrentSemester", async (req, res) => {
 }
 );
 
+// Get Course by Subject Code
+
+router.get("/getCourseBySubjectCode/:id", async (req, res) => {
+    try {
+        const courseDetails = await CourseDetails.findOne(
+            {
+                subject_code: req.params.id
+            }
+        );
+        res.json({
+            courseDetails: courseDetails
+        });
+    }
+    catch (err) {
+        res.json({
+            message: err
+        });
+    }
+}
+);
+
 // Student Section ---------------------------------------------
 
 // Create New Student
