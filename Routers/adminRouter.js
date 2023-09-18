@@ -95,7 +95,9 @@ router.patch("/updateTPO", async (req, res) => {
                 }
             }
         );
-        res.json(updateTPO);
+        res.json({
+            message: "TPO Updated Successfully"
+        });
     } catch (err) {
         res.json({
             message: err
@@ -106,12 +108,12 @@ router.patch("/updateTPO", async (req, res) => {
 
 // Delete TPO
 
-router.delete("/deleteTPO", async (req, res) => {
+router.delete("/delete-tpo/:id", async (req, res) => {
 
     try {
         const deleteTPO = await TPODetails.deleteOne(
             {
-                tpo_id: req.body.tpo_id
+                tpo_id: req.params.id
             }
         );
         res.json({
@@ -241,9 +243,9 @@ router.patch('/updateFacultyDetails/:faculty_id', async (req, res) => {
 
 // Delete a faculty details
 
-router.delete('/deleteFacultyDetails/:faculty_id', async (req, res) => {
+router.delete('/delete-faculty/:id', async (req, res) => {
     try {
-        const deletedFacultyDetails = await FacultyDetails.deleteOne({ faculty_id: req.params.faculty_id });
+        const deletedFacultyDetails = await FacultyDetails.deleteOne({ faculty_id: req.params.id });
         res.json(deletedFacultyDetails);
     } catch (err) {
         res.json({ message: err });
@@ -376,7 +378,9 @@ router.patch("/updateTTO", async (req, res) => {
                 }
             }
         );
-        res.json(updateTTO);
+        res.json({
+            message: "TTO Updated Successfully"
+        });
     } catch (err) {
         res.json({
             message: err
@@ -387,12 +391,13 @@ router.patch("/updateTTO", async (req, res) => {
 
 // Delete TTO
 
-router.delete("/deleteTTO", async (req, res) => {
+router.delete("/delete-tto/:id", async (req, res) => {
 
+    console.log(req.params.id);
     try {
         const deleteTTO = await TTODetails.deleteOne(
             {
-                tto_id: req.body.tto_id
+                tto_id: req.params.id
             }
         );
         res.json({
@@ -519,12 +524,12 @@ router.patch("/updateCourseDetails", async (req, res) => {
 
 // Delete Course Details
 
-router.delete("/deleteCourseDetails", async (req, res) => {
+router.delete("/delete-course/:id", async (req, res) => {
 
     try {
         const deleteCourseDetails = await CourseDetails.deleteOne(
             {
-                subject_code: req.body.subject_code
+                subject_code: req.params.id
             }
         );
         res.json({
@@ -966,11 +971,11 @@ router.patch("/updateStudentAcademicInfo", async (req, res) => {
 
 // Delete Student
 
-router.delete("/deleteStudent", async (req, res) => {
+router.delete("/delete-student/:id", async (req, res) => {
     try {
         const deleteStudent = await StudentDetails.deleteOne(
             {
-                student_code: req.body.student_code
+                student_code: req.params.id
             }
         );
         res.json({

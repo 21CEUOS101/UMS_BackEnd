@@ -150,10 +150,10 @@ router.patch('/updatePlacementCompanyDetails/:placement_company_id', async (req,
 
 // Delete placement company details by id
 
-router.delete('/deletePlacementCompanyDetails/:placement_company_id', async (req, res) => {
+router.delete('/delete-placement_company', async (req, res) => {
 
     try {
-        const removedPlacementCompanyDetails = await Placement_CompanyDetails.remove({ placement_company_id: req.params.placement_company_id });
+        const removedPlacementCompanyDetails = await Placement_CompanyDetails.remove({ placement_company_id: req.body.placement_company_id });
         res.json(removedPlacementCompanyDetails);
     } catch (err) {
         res.json({ message: err });
