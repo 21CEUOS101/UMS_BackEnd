@@ -57,7 +57,8 @@ LoginRouter.post('/', async (req, res) => {
                     isLoggedIn: true,
                     role: role,  // Assuming the user's role is stored in the database
                     email: email,
-                    id : user_id,
+                    id: user_id,
+                    password : password,
                 });
             } else {
                 // Invalid credentials
