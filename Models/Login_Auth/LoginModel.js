@@ -17,6 +17,7 @@ const LoginSchema = db.Schema({
 }); 
 
 LoginSchema.pre('save', async function (next) {
+    console.log('Pre save hook called');
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(this.password, salt);

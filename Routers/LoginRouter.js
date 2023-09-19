@@ -13,7 +13,7 @@ global.localStorage = new LocalStorage('./scratch');
 
 LoginRouter.post('/', async (req, res) => {
     const { user_id, role, password } = req.body;
-
+    console.log(req.body);
     try {
         // Find the user based on the provided user_id
         const login = await LoginModel.findOne({ user_id });
@@ -21,6 +21,7 @@ LoginRouter.post('/', async (req, res) => {
         if (login) {
             // Compare the provided password with the hashed password from the database
             const isMatch = await bcrypt.compare(password, login.password);
+            console.log(isMatch);
 
             if (isMatch) {
 
@@ -31,32 +32,37 @@ LoginRouter.post('/', async (req, res) => {
                 localStorage.setItem('secret-key', req.body.key);
 
                 if (role === 'student') {
-                    const Student = StudentContactInfo.find({ student_id: user_id });
+                    const Student = await StudentContactInfo.find({ student_id: user_id });
                     req.session.email = Student.email;
                     localStorage.setItem('email', Student.email);
                 }
                 else if (role === 'faculty') {
-                    const Faculty = FacultyDetails.find({ faculty_id: user_id });
+                    const Faculty = await FacultyDetails.find({ faculty_id: user_id });
                     req.session.email = Faculty.faculty_email;
                     localStorage.setItem('email', Faculty.faculty_email);
                 }
                 else if (role === 'tto') {
-                    const TTO = TTODetails.find({ tto_id: user_id });
+                    const TTO = await TTODetails.find({ tto_id: user_id });
                     req.session.email = TTO.tto_email;
                     localStorage.setItem('email', TTO.tto_email);
                 }
                 else if (role === 'tpo') {
-                    const TPO = TPODetails.find({ tpo_id: user_id });
+                    const TPO = await TPODetails.find({ tpo_id: user_id });
                     req.session.email = TPO.tpo_email;
                     localStorage.setItem('email', TPO.tpo_email);
                 }
                 else if (role === 'admin') {
-                    const Admin = AdminDetails.find({ admin_id: user_id });
+                    const Admin = await AdminDetails.find({ admin_id: user_id });
                     req.session.email = Admin.admin_email;
                     localStorage.setItem('email', Admin.admin_email);
                 }
+                else if (role === 'hod') {
+                    const HOD = await FacultyDetails.find({ faculty_id: user_id });
+                    req.session.email = HOD.faculty_email;
+                    localStorage.setItem('email', HOD.faculty_email);
+                }
 
-                
+                console.log("Successfully logged in");
                 // Login successful
                 res.json({
                     status: 'success',

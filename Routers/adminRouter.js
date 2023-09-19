@@ -14,6 +14,8 @@ const TPODetails = require("../Models/TPODetails");
 const AdminDetails = require("../Models/AdminDetails");
 const MakeAnnouncement = require("../Functionalities/MakeAnnouncement");
 const AdminService = require("../Services/Admin_Service");
+const LoginSchema = require("../Models/Login_Auth/LoginModel");
+const generatePassword  = require("./generatePassword");
 
 router.use(express.json());
 
@@ -44,8 +46,9 @@ router.post("/createTPO", async (req, res) => {
 
     try {
 
+        
         const check = await TPODetails.find({ tpo_id: req.body.tpo_id });
-        if (check != null && check.length > 0) {
+        if (check?.length > 0) {
             res.json({
                 message: "TPO already exists"
             });
@@ -62,6 +65,17 @@ router.post("/createTPO", async (req, res) => {
             tpo_department: req.body.tpo_department,
         }
         );
+
+        // Create Login Credentials
+        const password = generatePassword(10);
+        
+        const login = new LoginSchema({
+            user_id: tpoDetails.tpo_id,
+            role: "tpo",
+            password: password,
+        });
+        await login.save();
+        
         res.json({
             message: "TPO Created Successfully"
         });
@@ -188,7 +202,7 @@ router.post('/addFacultyDetails', async (req, res) => {
 
     try {
         const check = await FacultyDetails.find({ faculty_id: req.body.faculty_id });
-        if (check != null && check.length > 0) {
+        if (check?.length > 0) {
             console.log(check);
             res.json({
                 message: "Faculty already exists"
@@ -206,6 +220,18 @@ router.post('/addFacultyDetails', async (req, res) => {
             faculty_department: req.body.faculty_department,
         });
         const savedFacultyDetails = await facultyDetails.save();
+
+        // Create Login Credentials
+        const password = generatePassword(10);
+        
+        const login = new LoginSchema({
+            user_id: savedFacultyDetails.faculty_id,
+            role: "faculty",
+            password: password,
+        });
+        await login.save();
+        // Login successful
+
         res.json({
             message: "Faculty Details Created Successfully"
         });
@@ -327,7 +353,7 @@ router.post("/createTTO", async (req, res) => {
 
         const check = await TTODetails.find({ tto_id: req.body.tto_id });
 
-        if (check != null && check.length > 0) {
+        if (check?.length > 0) {
             res.json({
                 message: "TTO already exists"
             });
@@ -345,6 +371,17 @@ router.post("/createTTO", async (req, res) => {
             tto_department: req.body.tto_department,
         });
 
+        // Create Login Credentials
+        const password = generatePassword(10);
+        
+        const login = new LoginSchema({
+            user_id: req.body.tto_id,
+            role: "tto",
+            password: password,
+        });
+        await login.save();
+        // Login successful
+        
         res.json({
             message: "TTO Created Successfully"
         });
@@ -447,7 +484,7 @@ router.post("/createCourseDetails", async (req, res) => {
     try {
 
         const check = CourseDetails.find({ subject_code: req.body.subject_code });
-        if (check != null && check.length > 0) {
+        if (check?.length > 0) {
             res.json({
                 message: "Course already exists"
             });
@@ -593,7 +630,7 @@ router.post("/createStudent", async (req, res) => {
 
     try {
         const check = StudentDetails.find({ student_id: req.body.student_id });
-        if (check != null && check.length > 0) {
+        if (check?.length > 0) {
             res.json({
                 message: "Student already exists"
             });
@@ -682,6 +719,16 @@ router.post("/createStudent", async (req, res) => {
                 result: req.body.result,
             }
         );
+                // Create Login Credentials
+                const password = generatePassword(10);
+        
+                const login = new LoginSchema({
+                    user_id: req.body.student_id,
+                    role: "student",
+                    password: password,
+                });
+                await login.save();
+                // Login successful
         res.json({
             message: "Student Created Successfully"
         });

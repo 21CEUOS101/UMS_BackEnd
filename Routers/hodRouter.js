@@ -22,14 +22,16 @@ const TimeTableBlock = require('../Models/ComponentModel/TimeTableBlock');
 const TTODetails = require("../Models/TTODetails");
 // Admin Imports
 const AdminDetails = require("../Models/AdminDetails");
+const generatePassword = require("./generatePassword");
+const LoginSchema = require("../Models/Login_Auth/LoginModel");
 
 // add new Admin
 router.post('/addNewAdmin', async (req, res) => {
 
     try {
 
-        const check = AdminDetails.find({ admin_id: req.body.admin_id });
-        if (check !== null || check.length > 0) {
+        const check = await AdminDetails.find({ admin_id: req.body.admin_id });
+        if (check?.length > 0) {
             res.json({
                 message: "Admin already exists"
             });
@@ -50,6 +52,16 @@ router.post('/addNewAdmin', async (req, res) => {
             admin_department: req.body.admin_department
         });
         const savedAdminDetails = await adminDetails.save();
+                // Create Login Credentials
+                const password = generatePassword(10);
+        
+                const login = new LoginSchema({
+                    user_id: adminDetails.admin_id,
+                    role: "admin",
+                    password: password,
+                });
+                await login.save();
+                // Login successful
         res.json({
             message: "Admin Details Added Successfully",
         });
@@ -174,9 +186,9 @@ router.post('/addNewHOD', async (req, res) => {
 
     try {
 
-        const check = HODDetails.find({ hod_id: req.body.hod_id });
-        if (check !== null || check.length > 0) {
-            console.log(req.body);
+        const check = await HODDetails.find({ hod_id: req.body.hod_id });
+        if (check?.length > 0) {
+            console.log(check);
             res.json({
                 message: "HOD already exists"
             });
@@ -199,6 +211,16 @@ router.post('/addNewHOD', async (req, res) => {
             hod_department: req.body.hod_department,
         });
         const savedHODDetails = await hodDetails.save();
+                // Create Login Credentials
+                const password = generatePassword(10);
+        
+                const login = new LoginSchema({
+                    user_id: savedHODDetails.hod_id,
+                    role: "hod",
+                    password: password,
+                });
+                await login.save();
+                // Login successful
         res.json({
             message: "HOD Details Added Successfully",
         });
