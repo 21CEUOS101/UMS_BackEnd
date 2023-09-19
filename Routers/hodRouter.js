@@ -29,7 +29,7 @@ router.post('/addNewAdmin', async (req, res) => {
     try {
 
         const check = AdminDetails.find({ admin_id: req.body.admin_id });
-        if (check !== null && check.length > 0) {
+        if (check !== null || check.length > 0) {
             res.json({
                 message: "Admin already exists"
             });
@@ -64,11 +64,11 @@ router.post('/addNewAdmin', async (req, res) => {
 
 // update Admin
 
-router.patch('/updateAdmin/:admin_id', async (req, res) => {
+router.patch('/updateAdmin', async (req, res) => {
 
     try {
         const updatedAdminDetails = await AdminDetails.updateOne(
-            { admin_id: req.params.admin_id },
+            { admin_id: req.body.admin_id },
             {
                 $set: {
                     admin_name: req.body.admin_name,
@@ -123,6 +123,23 @@ router.get('/getAllAdmins', async (req, res) => {
 }
 );
 
+// Delete Admin by admin_id
+
+router.delete('/delete-admin/:id', async (req, res) => {
+    console.log(req.params.id);
+    try {
+        await AdminDetails.deleteOne({ admin_id: req.params.id });
+        res.json({
+            message: "Admin Deleted Successfully"
+        });
+    } catch (err) {
+        res.json({
+            message: err
+        }); 
+    }
+}
+);
+
 // Get HOD details by id
 
 router.get('/getHODDetails/:hod_id', async (req, res) => {
@@ -158,7 +175,7 @@ router.post('/addNewHOD', async (req, res) => {
     try {
 
         const check = HODDetails.find({ hod_id: req.body.hod_id });
-        if (check !== null && check.length > 0) {
+        if (check !== null || check.length > 0) {
             console.log(req.body);
             res.json({
                 message: "HOD already exists"
@@ -196,11 +213,11 @@ router.post('/addNewHOD', async (req, res) => {
 
 // Update HOD details by id
 
-router.patch('/updateHODDetails/:hod_id', async (req, res) => {
-    
+router.patch('/updateHODDetails', async (req, res) => {
+        console.log(req.body);
         try {
             const updatedHODDetails = await HODDetails.updateOne(
-                { hod_id: req.params.hod_id },
+                { hod_id: req.body.hod_id },
                 {
                     $set: {
                         hod_name: req.body.hod_name,
@@ -213,10 +230,28 @@ router.patch('/updateHODDetails/:hod_id', async (req, res) => {
                     }
                 }
             );
+            console.log(updatedHODDetails);
             res.json(updatedHODDetails);
         } catch (err) {
             res.json({ message: err });
         }
+}
+);
+
+// Delete HOD by id
+
+router.delete('/delete-hod/:id', async (req, res) => {
+    console.log(req.params.id);
+    try {
+        await HODDetails.deleteOne({ hod_id: req.params.id });
+        res.json({
+            message: "HOD Deleted Successfully"
+        });
+    } catch (err) {
+        res.json({
+            message: err
+        });
+    }
 }
 );
 

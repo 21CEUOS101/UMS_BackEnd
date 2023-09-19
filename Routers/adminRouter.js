@@ -77,7 +77,7 @@ router.post("/createTPO", async (req, res) => {
 // Update TPO
 
 router.patch("/updateTPO", async (req, res) => {
-
+    console.log(req.body.tpo_id);
     try {
         const updateTPO = await TPODetails.updateOne(
             {
@@ -217,11 +217,11 @@ router.post('/addFacultyDetails', async (req, res) => {
 
 // Update a faculty details
 
-router.patch('/updateFacultyDetails/:faculty_id', async (req, res) => {
+router.patch('/updateFacultyDetails', async (req, res) => {
 
     try {
         const updatedFacultyDetails = await FacultyDetails.updateOne(
-            { faculty_id: req.params.faculty_id },
+            { faculty_id: req.body.faculty_id },
             {
                 $set: {
                     faculty_name: req.body.faculty_name,
@@ -486,7 +486,7 @@ router.post("/createCourseDetails", async (req, res) => {
 // Update Course Details
 
 router.patch("/updateCourseDetails", async (req, res) => {
-
+    console.log(req.body.subject_code);
     try {
         const updateCourseDetails = await CourseDetails.updateOne(
             {

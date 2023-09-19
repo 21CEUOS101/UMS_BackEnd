@@ -116,11 +116,11 @@ router.post('/createNewPlacementCompanyDetails', async (req, res) => {
 
 // Update placement company details by id
 
-router.patch('/updatePlacementCompanyDetails/:placement_company_id', async (req, res) => {
-
+router.patch('/update-placement_company', async (req, res) => {
+    console.log(req.body);
     try {
         const updatedPlacementCompanyDetails = await Placement_CompanyDetails.updateOne(
-            { placement_company_id: req.params.placement_company_id },
+            { placement_company_id: req.body.placement_company_id },
             {
                 $set: {
                     placement_company_name: req.body.placement_company_name,
@@ -150,10 +150,10 @@ router.patch('/updatePlacementCompanyDetails/:placement_company_id', async (req,
 
 // Delete placement company details by id
 
-router.delete('/delete-placement_company', async (req, res) => {
+router.delete('/delete-placement-company/:id', async (req, res) => {
 
     try {
-        const removedPlacementCompanyDetails = await Placement_CompanyDetails.remove({ placement_company_id: req.body.placement_company_id });
+        const removedPlacementCompanyDetails = await Placement_CompanyDetails.deleteOne({ placement_company_id: req.params.id });
         res.json(removedPlacementCompanyDetails);
     } catch (err) {
         res.json({ message: err });
