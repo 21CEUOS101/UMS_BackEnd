@@ -8,10 +8,11 @@ const TPODetails = require("../Models/TPODetails");
 const AdminDetails = require("../Models/AdminDetails");
 const LoginModel = require('../Models/Login_Auth/LoginModel');
 const HODDetails = require('../Models/HODDetails');
+const { LocalStorage } = require('node-localstorage');
+localStorage = new LocalStorage('./scratch');
 
 LoginRouter.post('/', async (req, res) => {
     const { user_id, role, password } = req.body;
-    console.log(req.body);
     try {
         // Find the user based on the provided user_id
         const login = await LoginModel.findOne({ user_id });
@@ -19,56 +20,44 @@ LoginRouter.post('/', async (req, res) => {
         if (login) {
             // Compare the provided password with the hashed password from the database
             const isMatch = await bcrypt.compare(password, login.password);
-            console.log(isMatch);
 
             if (isMatch === true) {
-                // req.session.role = role;
-                // req.session.user_id = user_id;
-                // localStorage.setItem('user_id', user_id);
-                // console.log(localStorage.getItem('user_id'));
-                // localStorage.setItem('role', role);
-                // localStorage.setItem('secret-key', req.body?.key);
-                // console.log(role==='hod');
+                let email = null;
                 
-                // if (role === 'student') {
-                //     const Student = await StudentContactInfo.find({ student_id: user_id });
-                //     req.session.email = Student.email;
-                //     localStorage.setItem('email', Student.email);
-                // }
-                // else if (role === 'faculty') {
-                //     const Faculty = await FacultyDetails.find({ faculty_id: user_id });
-                //     req.session.email = Faculty.faculty_email;
-                //     localStorage.setItem('email', Faculty.faculty_email);
-                // }
-                // else if (role === 'tto') {
-                //     const TTO = await TTODetails.find({ tto_id: user_id });
-                //     req.session.email = TTO.tto_email;
-                //     localStorage.setItem('email', TTO.tto_email);
-                // }
-                // else if (role === 'tpo') {
-                //     const TPO = await TPODetails.find({ tpo_id: user_id });
-                //     req.session.email = TPO.tpo_email;
-                //     localStorage.setItem('email', TPO.tpo_email);
-                // }
-                // else if (role === 'admin') {
-                //     const Admin = await AdminDetails.find({ admin_id: user_id });
-                //     req.session.email = Admin.admin_email;
-                //     localStorage.setItem('email', Admin.admin_email);
-                // }
-                // else if (role === 'hod') {
-                //     console.log("HOD");
-                //     const HOD = await HODDetails.find({ hod_id: user_id });
-                //     req.session.email = HOD.hod_email;
-                //     // localStorage.setItem('email', HOD.hod_email);
-                // }
-
-                console.log("Successfully logged in");
+                if (role === 'student') {
+                    const Student = await StudentContactInfo.findOne({ student_id: user_id });
+                    email = Student.email;
+                }
+                else if (role === 'faculty') {
+                    const Faculty = await FacultyDetails.findOne({ faculty_id: user_id });
+                    email = Faculty.faculty_email;
+                }
+                else if (role === 'tto') {
+                    const TTO = await TTODetails.findOne({ tto_id: user_id });
+                    email = TTO.tto_email;
+                }
+                else if (role === 'tpo') {
+                    const TPO = await TPODetails.findOne({ tpo_id: user_id });
+                    email = TPO.tpo_email;
+                }
+                else if (role === 'admin') {
+                    const Admin = await AdminDetails.findOne({ admin_id: user_id });
+                    email = Admin.admin_email;
+                }
+                else if (role === 'hod') {
+                    const HOD = await HODDetails.findOne({ hod_id: user_id });
+                    console.log(HOD);
+                    email = HOD.hod_email;
+                }
+                console.log(email);
                 // Login successful
                 res.json({
                     status: 'success',
                     message: 'Login successful',
                     isLoggedIn: true,
-                    role: login.role,  // Assuming the user's role is stored in the database
+                    role: role,  // Assuming the user's role is stored in the database
+                    email: email,
+                    id : user_id,
                 });
             } else {
                 // Invalid credentials
