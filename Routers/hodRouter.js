@@ -824,5 +824,69 @@ router.get('/getAllPlacementCompanyDetailsByPlacementCompanyType/:placement_comp
     }
 }
 );
+
+router.get('/getAllNumbers', async (req, res) => {
+    const current_year = new Date().getFullYear();
+    try {
+        const no_of_students = await StudentDetails.find({ enrollment_year: { $gte: current_year - 4, $lte: current_year } }).countDocuments();
+        const no_of_faculty = await FacultyDetails.find().countDocuments();
+        const no_of_hod = await HODDetails.find().countDocuments();
+        const no_of_tto = await TTODetails.find().countDocuments();
+        const no_of_tpo = await TPODetails.find().countDocuments();
+        const no_of_admin = await AdminDetails.find().countDocuments();
+        const no_of_subjects = await CourseDetails.find().countDocuments();
+        const no_of_placement_companies = await Placement_CompanyDetails.distinct("placement_company_name").countDocuments();
+
+        res.json({
+            no_of_students: no_of_students,
+            no_of_faculty: no_of_faculty,
+            no_of_hod: no_of_hod,
+            no_of_tto: no_of_tto,
+            no_of_tpo: no_of_tpo,
+            no_of_admin: no_of_admin,
+            no_of_subjects: no_of_subjects,
+            no_of_placement_companies: no_of_placement_companies
+        });
+    } catch (err) {
+        res.json({ message: err });
+    }
+    
+});
+
+router.get('/getStudentCountByYear', async (req, res) => {
+    
+    try {
+        const studentCountByYear = await StudentDetails.find({ enrollment_year: req.body.enrollment_year }).countDocuments();
+        res.json(studentCountByYear);
+    }
+    catch (err) {
+        res.json({ message: err });
+    }
+}
+);
+
+router.get('/getStudentCountByDepartment/:year', async (req, res) => {
+    try {
+        const getStudentCountByDepartment = await StudentDetails.aggregate([
+            {
+                $match: {
+                    enrollment_year: req.params.year
+                }
+            },
+            {
+                $group: {
+                    _id: "$degree",
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+        res.json(getStudentCountByDepartment);
+    }
+    catch (err) {
+        res.json({ message: err });
+    }
+});
+
+
 router.use("/", require("../Functionalities/MakeAnnouncement"));
 module.exports = router;
