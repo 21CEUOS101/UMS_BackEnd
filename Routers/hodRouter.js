@@ -887,6 +887,32 @@ router.get('/getStudentCountByDepartment/:year', async (req, res) => {
     }
 });
 
+// Get students no if they are D2D is not
+
+router.get('/getStudentNumberD2D', async (req, res) => {
+    try {
+        const getStudentNumberD2D = await StudentDetails.find({ isD2D: "true" }).countDocuments();
+        const totalStudents = await StudentDetails.find().countDocuments();
+
+        res.json([{
+            _id: "D2D",
+            count : getStudentNumberD2D
+        },
+            {
+                _id: "Non D2D",
+                count : (totalStudents - getStudentNumberD2D)
+        }
+        ]);
+
+    }
+    catch (error)
+    {
+        res.json({
+            message : error
+        })
+    }
+});
+
 
 router.use("/", require("../Functionalities/MakeAnnouncement"));
 module.exports = router;
