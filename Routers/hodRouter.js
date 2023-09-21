@@ -889,10 +889,11 @@ router.get('/getStudentCountByDepartment/:year', async (req, res) => {
 
 // Get students no if they are D2D is not
 
-router.get('/getStudentNumberD2D', async (req, res) => {
+router.get('/getStudentNumberD2D/:year', async (req, res) => {
+    console.log(req.params.year);
     try {
-        const getStudentNumberD2D = await StudentDetails.find({ isD2D: "true" }).countDocuments();
-        const totalStudents = await StudentDetails.find().countDocuments();
+        const getStudentNumberD2D = await StudentDetails.find({ isD2D: "true" , enrollment_year : req.params.year }).countDocuments();
+        const totalStudents = await StudentDetails.find({enrollment_year : req.params.year}).countDocuments();
 
         res.json([{
             _id: "D2D",

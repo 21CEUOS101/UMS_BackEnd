@@ -1037,6 +1037,41 @@ router.patch("/updateStudentAcademicInfo", async (req, res) => {
 }
 );
 
+router.patch('/updateStudentFeesInfo', async (req, res) => {
+    try {
+        const updateStudentFeesInfo = await StudentFeesInfo.updateOne(
+            {
+                student_id: req.body.student_id
+            },
+            {
+                $set: {
+                    txn_date: req.body.txn_date,
+                    voucher_number: req.body.voucher_number,
+                    batch_year: req.body.batch_year,
+                    session_no: req.body.session_no,
+                    admission_type: req.body.admission_type,
+                    fees_amount: req.body.fees_amount,
+                    txn_status: req.body.txn_status,
+                    payment_mode: req.body.payment_mode,
+                    cheque_number: req.body.cheque_number,
+                    cheque_date: req.body.cheque_date,
+                    bank_name: req.body.bank_name,
+                    paid_date: req.body.paid_date,
+                    reconsile_date: req.body.reconsile_date,
+                    reconsile_number: req.body.reconsile_number
+                }
+            }
+        );
+        res.json(updateStudentFeesInfo);
+    }
+    catch (error)
+    {
+        res.json({
+            message : error
+        })
+    }
+});
+
 // Delete Student
 
 router.delete("/delete-student/:id", async (req, res) => {
