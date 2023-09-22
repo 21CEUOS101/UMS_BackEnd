@@ -202,7 +202,10 @@ router.get('/generateTimeTablePDF/:time_table_id', async (req, res) => {
     try {
         const allBlocksByTimeTableID = await TimeTableBlock.find({ time_table_id: req.params.time_table_id });
         const doc = new PDFDocument();
-        doc.pipe(fs.createWriteStream('TimeTable.pdf'));
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=TimeTable.pdf');
+
+        doc.pipe(res);
         doc.text('Time Table', 100, 50);
         doc.text('Time Table ID : ' + req.params.time_table_id, 100, 70);
         doc.text('Department : ' + allBlocksByTimeTableID[0].time_table_block_department, 100, 90);
@@ -210,8 +213,6 @@ router.get('/generateTimeTablePDF/:time_table_id', async (req, res) => {
         doc.text('Section : ' + allBlocksByTimeTableID[0].time_table_block_section, 100, 130);
         doc.text(JSON.stringify(allBlocksByTimeTableID), 100, 150);
         doc.end();
-
-        res.json(allBlocksByTimeTableID);
     } catch (err) {
         res.json({ message: err });
     }

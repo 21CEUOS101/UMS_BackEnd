@@ -302,11 +302,16 @@ router.get("/getAllStudentsBySession", async (req, res) => {
 
 // Get Course for current semester
 
-router.get("/getCourseForCurrentSemester", async (req, res) => {
+router.get("/getCourseForCurrentSemester/:id", async (req, res) => {
+    console.log(req.params.id);
     try {
+        const studentDetails = await StudentDetails.find({
+            student_id: req.params.id
+        });
+        console.log(studentDetails[0]?.session_number);
         const courseDetails = await CourseDetails.find(
             {
-                semester: req.body.semester
+                semester: studentDetails[0]?.session_number
             }
         );
         res.json({
@@ -354,10 +359,10 @@ router.get('/getAllTimeTableBlockDetails', async (req, res) => {
 
 // Get a specific time table block details
 
-router.get('/getSpecificTimeTableBlockDetails/:time_table_block_id', async (req, res) => {
+router.get('/getSpecificTimeTableBlockDetails/:time_table_block_id/:time_table_id', async (req, res) => {
 
     try {
-        const specificTimeTableBlockDetails = await TimeTableBlock.findOne({ time_table_block_id: req.params.time_table_block_id });
+        const specificTimeTableBlockDetails = await TimeTableBlock.findOne({ time_table_id : req.params.time_table_id , time_table_block_id: req.params.time_table_block_id });
         res.json(specificTimeTableBlockDetails);
     } catch (err) {
         res.json({ message: err });
