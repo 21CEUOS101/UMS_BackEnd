@@ -145,12 +145,11 @@ router.post('/addTimeTableBlockDetails', async (req, res) => {
 );
 
 // Update a time table block details
-
-router.patch('/updateTimeTableBlockDetails/:time_table_block_id', async (req, res) => {
+router.patch('/updateTimeTableBlockDetails/:time_table_block_id/:time_table_id', async (req, res) => {
 
     try {
         const updatedTimeTableBlockDetails = await TimeTableBlock.updateOne(
-            { time_table_block_id: req.params.time_table_block_id },
+            { time_table_block_id: req.params.time_table_block_id , time_table_id: req.params.time_table_id },
             {
                 $set: {
                     time_table_id: req.body.time_table_id,
