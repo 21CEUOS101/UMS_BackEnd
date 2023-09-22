@@ -117,23 +117,26 @@ router.get('/getAllBlocksByDepartment/:time_table_department', async (req, res) 
 // Add a time table block details
 
 router.post('/addTimeTableBlockDetails', async (req, res) => {
-
-    const timeTableBlock = new TimeTableBlock({
-        time_table_block_id: req.body.time_table_block_id,
-        time_table_id: req.body.time_table_id,
-        time_table_block_department: req.body.time_table_department,
-        time_table_block_semester: req.body.time_table_semester,
-        time_table_block_section: req.body.time_table_section,
-        time_table_block_day: req.body.time_table_block_day,
-        time_table_block_time: req.body.time_table_block_time,
-        time_table_block_subject: req.body.time_table_block_subject,
-        time_table_block_faculty: req.body.time_table_block_faculty,
-        time_table_block_room_no: req.body.time_table_block_room_no,
-        time_table_block_section_no: req.body.time_table_block_section_no,
-    });
+    console.log(req.body);
+    
 
     try {
+        const timeTableBlock = new TimeTableBlock({
+            time_table_block_id: req.body.time_table_block_id,
+            time_table_id: req.body.time_table_id,
+            time_table_block_department: req.body.time_table_block_department,
+            time_table_block_semester: req.body.time_table_block_semester,
+            time_table_block_section: req.body.time_table_block_section,
+            time_table_block_day: req.body.time_table_block_day,
+            time_table_block_time: req.body.time_table_block_time,
+            time_table_block_subject: req.body.time_table_block_subject,
+            time_table_block_faculty: req.body.time_table_block_faculty,
+            time_table_block_room_no: req.body.time_table_block_room_no,
+            time_table_block_section_no: req.body.time_table_block_section_no,
+        });
+        console.log(timeTableBlock);
         const savedTimeTableBlock = await timeTableBlock.save();
+        console.log(savedTimeTableBlock);
         res.json(savedTimeTableBlock);
     } catch (err) {
         res.json({ message: err });
@@ -202,10 +205,7 @@ router.get('/generateTimeTablePDF/:time_table_id', async (req, res) => {
     try {
         const allBlocksByTimeTableID = await TimeTableBlock.find({ time_table_id: req.params.time_table_id });
         const doc = new PDFDocument();
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=TimeTable.pdf');
-
-        doc.pipe(res);
+        doc.pipe(fs.createWriteStream('TimeTable.pdf'));
         doc.text('Time Table', 100, 50);
         doc.text('Time Table ID : ' + req.params.time_table_id, 100, 70);
         doc.text('Department : ' + allBlocksByTimeTableID[0].time_table_block_department, 100, 90);
@@ -213,6 +213,8 @@ router.get('/generateTimeTablePDF/:time_table_id', async (req, res) => {
         doc.text('Section : ' + allBlocksByTimeTableID[0].time_table_block_section, 100, 130);
         doc.text(JSON.stringify(allBlocksByTimeTableID), 100, 150);
         doc.end();
+
+        res.json(allBlocksByTimeTableID);
     } catch (err) {
         res.json({ message: err });
     }
