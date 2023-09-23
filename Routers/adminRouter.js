@@ -1140,11 +1140,11 @@ router.get("/getStudentExamResult/:student_id", async (req, res) => {
 }   
 );
 
-router.get("/getCourseDetails/:student_id", async (req, res) => {
+router.get("/getCourseDetails/:subject_code", async (req, res) => {
         
             try {
                 const courseDetails = await CourseDetails.find({
-                    student_id: req.params.student_id
+                    subject_code: req.params.subject_code
                 });
                 res.json(courseDetails);
             } catch (err) {
