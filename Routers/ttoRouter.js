@@ -57,6 +57,8 @@ router.get('/getSpecificTimeTableBlockDetails/:time_table_block_id', async (req,
 }
 );
 
+
+
 // Get all Blocks by Time Table ID
 
 router.get('/getAllBlocksByTimeTableID/:time_table_id', async (req, res) => {
@@ -69,6 +71,25 @@ router.get('/getAllBlocksByTimeTableID/:time_table_id', async (req, res) => {
     }
 }
 );
+
+// Get Time Table Block Details by Specific Time Table ID and Specific Time Table Block ID
+
+router.get('/getSpecificTimeTableSpecificBlockDetails/:time_table_block_id/:time_table_id', async (req, res) => {
+    console.log(req.params.time_table_id, req.params.time_table_block_id);
+    try {
+        const specificTimeTableBlockDetails = await TimeTableBlock.findOne({
+            time_table_id: req.params.time_table_id,
+            time_table_block_id: req.params.time_table_block_id
+        });
+        if (specificTimeTableBlockDetails) {
+            res.json(specificTimeTableBlockDetails);
+        } else {
+            res.json({ message: 'Time Table Block not found' });
+        }
+    } catch (err) {
+        res.json({ message: err.message });
+    }
+});
 
 // Get all Blocks by Semester section and department
 
