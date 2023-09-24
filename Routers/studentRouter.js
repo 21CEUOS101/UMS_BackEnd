@@ -107,6 +107,22 @@ router.get("/getStudentExamResult/:student_id", async (req, res) => {
 }   
 );
 
+router.get("/getStudentExamResultSem/:semester/:student_id", async (req, res) => {
+    console.log(req.params.student_id, req.params.semester);
+    try {
+        const studentExamResult = await StudentExamResult.findOne({
+            student_id: req.params.student_id,
+            semester: req.params.semester
+        });
+        res.json(studentExamResult);
+    } catch (err) {
+        res.json({
+            message: err
+        });
+    }
+}
+);
+
 router.get("/getCourseDetails/:student_id", async (req, res) => {
         
             try {

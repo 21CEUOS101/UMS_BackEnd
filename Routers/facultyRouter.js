@@ -396,5 +396,74 @@ router.patch("/updateStudentExamResult", async (req, res) => {
     }
 }
 );
+
+// Update Result of Specific Student Id and Specific Semester
+
+router.patch("/updateStudentExamResultSem/:semester/:student_id", async (req, res) => {
+    try {
+        const updatedStudentExamResult = await StudentExamResult.updateOne(
+            {
+                student_id: req.params.student_id,
+                semester: req.params.semester
+            },
+            {
+                $set: {
+                    student_id: req.params.student_id,
+                    semester: req.params.semester,
+                    subject_code: req.body.subject_code,
+                    subject_name: req.body.subject_name,
+                    sessional1_marks: req.body.sessional1_marks,
+                    sessional2_marks: req.body.sessional2_marks,
+                    sessional3_marks: req.body.sessional3_marks,
+                    sessional1_present: req.body.sessional1_present,
+                    sessional2_present: req.body.sessional2_present,
+                    sessional3_present: req.body.sessional3_present,
+                    sessional1_attendance: req.body.sessional1_attendance,
+                    sessional2_attendance: req.body.sessional2_attendance,
+                    sessional3_attendance: req.body.sessional3_attendance,
+                    sessional1_total_attendance: req.body.sessional1_total_attendance,
+                    sessional2_total_attendance: req.body.sessional2_total_attendance,
+                    sessional3_total_attendance: req.body.sessional3_total_attendance,
+                    sessional1_practical_attendance: req.body.sessional_practical_attendance,
+                    sessional2_practical_attendance: req.body.sessional2_practical_attendance,
+                    sessional3_practical_attendance: req.body.sessional3_practical_attendance,
+                    sessional1_total_practical_attendance: req.body.sessional1_total_practical_attendance,
+                    sessional2_total_practical_attendance: req.body.sessional2_total_practical_attendance,
+                    sessional3_total_practical_attendance: req.body.sessional3_total_practical_attendance,
+                    block_marks: req.body.block_marks,
+                    block_present: req.body.block_present,
+                    external_marks: req.body.external_marks,
+                    external_status: req.body.external_status,
+                    avg_sessional_marks: req.body.avg_sessional_marks,
+                    sessional_status: req.body.sessional_status,
+                    avg_practical_marks: req.body.avg_practical_marks,
+                    practical_status: req.body.practical_status,
+                    termwork_marks: req.body.termwork_marks,
+                    termwork_status: req.body.termwork_status,
+                    total_marks: req.body.total_marks,
+                    max_total_marks: req.body.max_total_marks,
+                    subject_points: req.body.subject_points,
+                    subject_grade: req.body.subject_grade,
+                    subject_credit: req.body.subject_credit,
+                    subject_status: req.body.subject_status,
+                    spi_credit: req.body.spi_credit,
+                    spi_points: req.body.spi_points,
+                    spi: req.body.spi,
+                    cpi_credit: req.body.cpi_credit,
+                    cpi_points: req.body.cpi_points,
+                    cpi: req.body.cpi,
+                    result_status: req.body.result_status
+                }
+            }
+        );
+        res.json(updatedStudentExamResult);
+    } catch (err) {
+        res.json({
+            message: err
+        });
+    }
+});
+
+
 router.use("/", require("../Functionalities/MakeAnnouncement"));
 module.exports = router;
