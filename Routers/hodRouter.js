@@ -223,6 +223,9 @@ router.post('/addNewHOD', async (req, res) => {
                 // Login successful
         res.json({
             message: "HOD Details Added Successfully",
+            id: savedHODDetails.hod_id,
+            email: savedHODDetails.hod_email,
+            password : login.password
         });
     }
     catch (err) {
