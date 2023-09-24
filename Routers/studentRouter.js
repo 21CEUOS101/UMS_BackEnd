@@ -132,6 +132,17 @@ router.get("/getAllStudentEmails", async (req, res) => {
     }
 });
 
+// get all student emails by semester
+
+router.get("/getAllStudentEmailsBySemester/:semester", async (req, res) => {
+    try {
+        const studentEmails = await StudentDetails.find({ session_number: req.params.semester }).distinct("student_email");
+        res.json(studentEmails);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 router.get("/getCourseDetails/:student_id", async (req, res) => {
         
             try {
