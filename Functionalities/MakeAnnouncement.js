@@ -4,12 +4,39 @@ const nodemailer = require('nodemailer');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const localStorage = new LocalStorage('./scratch');
 const bodyParser = require('body-parser'); // Added bodyParser for JSON parsing
+const StudentDetails = require('../Models/StudentModel/StudentDetails');
+const FacultyDetails = require('../Models/FacultyDetails');
+const HODDetails = require('../Models/HODDetails');
+const TPODetails = require('../Models/TPODetails');
+const TTODetails = require('../Models/TTODetails');
+const AdminDetails = require('../Models/AdminDetails');
 
 // Configure Nodemailer with Gmail credentials
 
 router.use(bodyParser.json()); // Use bodyParser for JSON parsing
 
+router.get('/getAllEmails', async (req, res) => {
+  try {
+    const studentEmails = StudentDetails.find().student_email;
+    const facultyEmails = FacultyDetails.find().faculty_email;
+    const HODEmails = HODDetails.find().hod_email;
+    const TPOEmails = TPODetails.find().tpo_email;
+    const TTOEmails = TTODetails.find().tto_email;
+    const AdminEmails = AdminDetails.find().admin_email;
 
+    res.status(200).json({
+      studentEmails: studentEmails,
+      facultyEmails: facultyEmails,
+      HODEmails: HODEmails,
+      TPOEmails: TPOEmails,
+      TTOEmails: TTOEmails,
+      AdminEmails: AdminEmails,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching emails' });
+  }
+});
 
 // API endpoint to handle sending emails
 router.post('/make-announcement', async (req, res) => {
