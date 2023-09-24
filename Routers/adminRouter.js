@@ -38,6 +38,17 @@ router.get('/getAllAdminDetails', async (req, res) => {
     }
 });
 
+// Get all Admin Emails
+
+router.get("/getAllAdminEmails", async (req, res) => {
+    try {
+        const adminEmails = await AdminDetails.find().distinct("admin_email");
+        res.json(adminEmails);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // TPO Section ---------------------------------------------
 
 // Create New TPO

@@ -233,6 +233,17 @@ router.post('/addNewHOD', async (req, res) => {
     }
 });
 
+// Get all HOD Emails
+
+router.get("/getAllHODEmails", async (req, res) => {
+    try {
+        const hodEmails = await HODDetails.find().distinct("hod_email");
+        res.json(hodEmails);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // Update HOD details by id
 
 router.patch('/updateHODDetails', async (req, res) => {

@@ -22,6 +22,17 @@ router.get('/getAllFacultyDetails', async (req, res) => {
 }
 );
 
+// Get all Faculty Emails
+
+router.get("/getAllFacultyEmails", async (req, res) => {
+    try {
+        const facultyEmails = await FacultyDetails.find().distinct("faculty_email");
+        res.json(facultyEmails);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // Get a specific faculty details
 
 router.get('/getSpecificFacultyDetails/:faculty_id', async (req, res) => {

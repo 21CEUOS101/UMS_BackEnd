@@ -31,6 +31,15 @@ router.get('/getAllTPODetails', async (req, res) => {
 }
 );
 
+router.get("/getAllTPOEmails", async (req, res) => {
+    try {
+        const tpoEmails = await TPODetails.find().distinct("tpo_email");
+        res.json(tpoEmails);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // Get all placement company details
 
 router.get('/getAllPlacementCompanyDetails', async (req, res) => {

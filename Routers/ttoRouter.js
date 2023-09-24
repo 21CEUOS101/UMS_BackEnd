@@ -31,6 +31,17 @@ router.get('/getAllTTODetails', async (req, res) => {
 }
 );
 
+// Get all TTO Emails
+
+router.get("/getAllTTOEmails", async (req, res) => {
+    try {
+        const ttoEmails = await TTODetails.find().distinct("tto_email");
+        res.json(ttoEmails);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // Get all time table block details
 
 router.get('/getAllTimeTableBlockDetails', async (req, res) => {
