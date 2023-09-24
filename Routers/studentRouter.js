@@ -289,41 +289,24 @@ router.get("/getAllStudents", async (req, res) => {
 
 // Get All Students by session
 
-router.get("/getAllStudentsBySession", async (req, res) => {
+router.get('/getStudentsBySession/:sessionNumber', async (req, res) => {
     try {
-        const studentDetails = await StudentDetails.find(
-            {
-                session: req.body.session_number
-            }
-        );
-        const studentGuardianInfo = await StudentGuardianInfo.find(
-            {
-                session: studentDetails[0].session
-            }
-        );
-        const studentOtherDetails = await StudentOtherDetails.find(
-            {
-                session: studentDetails[0].session
-            }
-        );
-        const studentContactInfo = await StudentContactInfo.find(
-            {
-                session: studentDetails[0].session
-            }
-        );
-        const studentAcademicInfo = await StudentAcademicInfo.find(
-            {
-                session: studentDetails[0].session
-            }
-        );
-    }   
-    catch (err) {
-        res.json({
-            message: err
-        });
+      const sessionNumber = req.params.sessionNumber; // Get the sessionNumber from the URL parameter
+  
+      // Query the database to find students with the specified session number
+      const students = await StudentDetails.find({ session_number: sessionNumber });
+  
+      if (!students || students.length === 0) {
+        return res.status(404).json({ message: 'No students found for the specified session number.' });
+      }
+  
+      res.status(200).json(students);
+    } catch (error) {
+      console.error('Error fetching students by session number:', error);
+      res.status(500).json({ message: 'Internal server error' });
     }
-}
-);
+});
+  
 
 // Get Course for current semester
 
@@ -451,6 +434,20 @@ router.get('/getAllBlocksByDepartment/:time_table_department', async (req, res) 
     }
 }
 );
+
+// Get Unique Session Number
+router.get('/getUniqueSessionNumbers', async (req, res) => {
+    try {
+      // Query your database to get unique session numbers
+      const uniqueSessionNumbers = await StudentDetails.distinct('session_number');
+  
+      // Send the session numbers as JSON response
+      res.json(uniqueSessionNumbers);
+    } catch (error) {
+      console.error('Error fetching unique session numbers:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 module.exports = router;
 
