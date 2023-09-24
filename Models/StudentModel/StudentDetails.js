@@ -62,7 +62,7 @@ const StudentDetailsSchema = db.Schema({
         required: true,
     },
     session_number: {
-        type: Number,
+        type: String,
         required: true,
     },
     batch_year: {
