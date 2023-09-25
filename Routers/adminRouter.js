@@ -88,7 +88,10 @@ router.post("/createTPO", async (req, res) => {
         await login.save();
         
         res.json({
-            message: "TPO Created Successfully"
+            message: "TPO Created Successfully",
+            id: req.body.tpo_id,
+            email: req.body.tpo_email,
+            password : password
         });
     }
     catch (err) {
@@ -244,7 +247,10 @@ router.post('/addFacultyDetails', async (req, res) => {
         // Login successful
 
         res.json({
-            message: "Faculty Details Created Successfully"
+            message: "Faculty Details Created Successfully",
+            id: req.body.faculty_id,
+            email: req.body.faculty_email,
+            password : password
         });
     } catch (err) {
         res.json({ message: err });
@@ -394,7 +400,10 @@ router.post("/createTTO", async (req, res) => {
         // Login successful
         
         res.json({
-            message: "TTO Created Successfully"
+            message: "TTO Created Successfully",
+            id: req.body.tto_id,
+            email: req.body.tto_email,
+            password : password
         });
     }
     catch (err) {

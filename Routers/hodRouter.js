@@ -64,6 +64,9 @@ router.post('/addNewAdmin', async (req, res) => {
                 // Login successful
         res.json({
             message: "Admin Details Added Successfully",
+            id: req.body.admin_id,
+            email: req.body.admin_email,
+            password : password
         });
     }
     catch (err) {
