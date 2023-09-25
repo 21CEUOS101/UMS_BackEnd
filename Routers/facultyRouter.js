@@ -346,6 +346,77 @@ router.get("/getCourseForCurrentSemester", async (req, res) => {
 }
 );
 
+// Create Student Exam Result
+
+router.patch("/createStudentExamResult", async (req, res) => {
+    console.log(req.body);
+    try {
+        const studentExamResult = new StudentExamResult(
+            {
+                    student_id: req.body.student_id,
+                    semester: req.body.semester,
+                    batch_year : req.body.batch_year,
+                    subject_code: (req.body.subject_code)?.split(","),
+                    subject_name: (req.body.subject_name)?.split(","),
+                    sessional1_marks: (req.body.sessional1_marks)?.split(","),
+                    sessional2_marks: (req.body.sessional2_marks)?.split(","),
+                    sessional3_marks: (req.body.sessional3_marks)?.split(","),
+                    sessional1_present: (req.body.sessional1_present)?.split(","),
+                    sessional2_present: (req.body.sessional2_present)?.split(","),
+                    sessional3_present: (req.body.sessional3_present)?.split(","),
+                    sessional1_attendance: (req.body.sessional1_attendance)?.split(","),
+                    sessional2_attendance: (req.body.sessional2_attendance)?.split(","),
+                    sessional3_attendance: (req.body.sessional3_attendance)?.split(","),
+                    sessional1_total_attendance: (req.body.sessional1_total_attendance)?.split(","),
+                    sessional2_total_attendance: (req.body.sessional2_total_attendance)?.split(","),
+                    sessional3_total_attendance: (req.body.sessional3_total_attendance)?.split(","),
+                    sessional1_practical_attendance: (req.body.sessional1_practical_attendance)?.split(","),
+                    sessional2_practical_attendance: (req.body.sessional2_practical_attendance)?.split(","),
+                    sessional3_practical_attendance: (req.body.sessional3_practical_attendance)?.split(","),
+                    sessional1_total_practical_attendance: (req.body.sessional1_total_practical_attendance)?.split(","),
+                    sessional2_total_practical_attendance: (req.body.sessional2_total_practical_attendance)?.split(","),
+                    sessional3_total_practical_attendance: (req.body.sessional3_total_practical_attendance)?.split(","),
+                    block_marks: (req.body.block_marks)?.split(","),
+                    block_present: (req.body.block_present)?.split(","),
+                    external_marks: (req.body.external_marks)?.split(","),
+                    external_status: (req.body.external_status)?.split(","),
+                    avg_sessional_marks: (req.body.avg_sessional_marks)?.split(","),
+                    sessional_status: (req.body.sessional_status)?.split(","),
+                    avg_practical_marks: (req.body.avg_practical_marks)?.split(","),
+                    practical_status: (req.body.practical_status)?.split(","),
+                    termwork_marks: (req.body.termwork_marks)?.split(","),
+                    termwork_status: (req.body.termwork_status)?.split(","),
+                    total_marks: (req.body.total_marks)?.split(","),
+                    max_total_marks: (req.body.max_total_marks)?.split(","),
+                    subject_points: (req.body.subject_points)?.split(","),
+                    subject_grade: (req.body.subject_grade)?.split(","),
+                    subject_credit: (req.body.subject_credit)?.split(","),
+                    subject_status: (req.body.subject_status)?.split(","),
+                    spi_credit: req.body.spi_credit,
+                    spi_points: req.body.spi_points,
+                    spi: req.body.spi,
+                    cpi_credit: req.body.cpi_credit,
+                    cpi_points: req.body.cpi_points,
+                    cpi: req.body.cpi,
+                    result_status : req.body.result_status
+            }
+        );
+        console.log(studentExamResult);
+        await studentExamResult.save();
+        res.json({
+            message : "Exam Result Created Successfully"
+        });
+    }
+    catch (err) {
+        console.error(err); // Log the error
+        res.status(500).json({
+            message: "An error occurred while creating the exam result."
+        });
+    }
+}
+);
+
+
 // Update Student Exam Result 
 
 router.patch("/updateStudentExamResult", async (req, res) => {
@@ -358,6 +429,7 @@ router.patch("/updateStudentExamResult", async (req, res) => {
                 $set: {
                     student_id: req.body.student_id,
                     semester: req.body.semester,
+                    batch_year : req.body.batch_year,
                     subject_code: req.body.subject_code,
                     subject_name: req.body.subject_name,
                     semester: req.body.semester,
@@ -394,7 +466,14 @@ router.patch("/updateStudentExamResult", async (req, res) => {
                     subject_points: req.body.subject_points,
                     subject_grade: req.body.subject_grade,
                     subject_credit: req.body.subject_credit,
-                    subject_status: req.body.subject_status
+                    subject_status: req.body.subject_status,
+                    spi_credit: req.body.spi_credit,
+                    spi_points: req.body.spi_points,
+                    spi: req.body.spi,
+                    cpi_credit: req.body.cpi_credit,
+                    cpi_points: req.body.cpi_points,
+                    cpi: req.body.cpi,
+                    result_status : req.body.result_status
                 }
             }
         );

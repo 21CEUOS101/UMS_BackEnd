@@ -114,6 +114,7 @@ router.get("/getStudentExamResultSem/:semester/:student_id", async (req, res) =>
             student_id: req.params.student_id,
             semester: req.params.semester
         });
+        console.log(studentExamResult);
         res.json(studentExamResult);
     } catch (err) {
         res.json({
