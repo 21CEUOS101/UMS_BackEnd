@@ -593,13 +593,15 @@ router.delete("/delete-course/:id", async (req, res) => {
 
 // Get Course for current semester
 
-router.get("/getCourseForCurrentSemester", async (req, res) => {
+router.get("/getCourseForCurrentSemester/:id", async (req, res) => {
     try {
+        const student_sem = StudentDetails.find({ student_id: id }).session_number;
         const courseDetails = await CourseDetails.find(
             {
-                semester: req.body.semester
+                semester: student_sem
             }
         );
+        console.log(courseDetails);
         res.json({
             courseDetails: courseDetails
         });
