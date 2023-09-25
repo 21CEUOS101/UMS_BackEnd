@@ -741,7 +741,10 @@ router.post("/createStudent", async (req, res) => {
                 await login.save();
                 // Login successful
         res.json({
-            message: "Student Created Successfully"
+            message: "Student Created Successfully",
+            id: req.body.student_id,
+            email: req.body.student_email,
+            password : password
         });
     }
     catch (err) {
