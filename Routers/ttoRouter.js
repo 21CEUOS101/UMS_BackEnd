@@ -185,9 +185,9 @@ router.patch('/updateTimeTableBlockDetails/:time_table_block_id/:time_table_id',
             {
                 $set: {
                     time_table_id: req.body.time_table_id,
-                    time_table_block_department: req.body.time_table_department,
-                    time_table_block_semester: req.body.time_table_semester,
-                    time_table_block_section: req.body.time_table_section,
+                    time_table_block_department: req.body.time_table_block_department,
+                    time_table_block_semester: req.body.time_table_block_semester,
+                    time_table_block_section: req.body.time_table_block_section,
                     time_table_block_day: req.body.time_table_block_day,
                     time_table_block_time: req.body.time_table_block_time,
                     time_table_block_subject: req.body.time_table_block_subject,

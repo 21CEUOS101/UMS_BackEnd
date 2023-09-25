@@ -96,27 +96,30 @@ router.get('/getAllPlacementCompanyDetailsByPlacementCompanyType/:placement_comp
 
 router.post('/createNewPlacementCompanyDetails', async (req, res) => {
 
-    const placement_company_details = new Placement_CompanyDetails({
-        placement_company_id: req.body.placement_company_id,
-        placement_company_name: req.body.placement_company_name,
-        placement_company_email: req.body.placement_company_email,
-        placement_company_mobile_number: req.body.placement_company_mobile_number,
-        placement_company_address: req.body.placement_company_address,
-        placement_company_city: req.body.placement_company_city,
-        placement_company_state: req.body.placement_company_state,
-        placement_company_country: req.body.placement_company_country,
-        placement_company_pincode: req.body.placement_company_pincode,
-        placement_company_website: req.body.placement_company_website,
-        placement_company_type: req.body.placement_company_type,
-        placement_company_description: req.body.placement_company_description,
-        placement_company_job_role: req.body.placement_company_job_role,
-        placement_company_job_description: req.body.placement_company_job_description,
-        no_of_students_placed: req.body.no_of_students_placed,
-    });
-
+    
     try {
+        const placement_company_details = new Placement_CompanyDetails({
+            placement_company_id: req.body.placement_company_id,
+            placement_company_name: req.body.placement_company_name,
+            placement_company_email: req.body.placement_company_email,
+            placement_company_mobile_number: req.body.placement_company_mobile_number,
+            placement_company_address: req.body.placement_company_address,
+            placement_company_city: req.body.placement_company_city,
+            placement_company_state: req.body.placement_company_state,
+            placement_company_country: req.body.placement_company_country,
+            placement_company_pincode: req.body.placement_company_pincode,
+            placement_company_website: req.body.placement_company_website,
+            placement_company_type: req.body.placement_company_type,
+            placement_company_description: req.body.placement_company_description,
+            placement_company_job_role: (req.body.placement_company_job_role).split(","),
+            placement_company_job_description: (req.body.placement_company_job_description).split(","),
+            no_of_student_placed: req.body.no_of_student_placed,
+        });
         const savedPlacementCompanyDetails = await placement_company_details.save();
-        res.json(savedPlacementCompanyDetails);
+        console.log(savedPlacementCompanyDetails);
+        res.json({
+            message : "Placement Company Added Successfully"
+        });
     } catch (err) {
         res.json({ message: err });
     }
@@ -143,8 +146,8 @@ router.patch('/update-placement-company', async (req, res) => {
                     placement_company_website: req.body.placement_company_website,
                     placement_company_type: req.body.placement_company_type,
                     placement_company_description: req.body.placement_company_description,
-                    placement_company_job_role: req.body.placement_company_job_role,
-                    placement_company_job_description: req.body.placement_company_job_description,
+                    placement_company_job_role: (req.body.placement_company_job_role).split(","),
+                    placement_company_job_description: (req.body.placement_company_job_description).split(","),
                     no_of_student_placed: req.body.no_of_student_placed,
                 }
             }
