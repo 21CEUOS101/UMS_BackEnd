@@ -125,7 +125,7 @@ router.post('/createNewPlacementCompanyDetails', async (req, res) => {
 
 // Update placement company details by id
 
-router.patch('/update-placement_company', async (req, res) => {
+router.patch('/update-placement-company', async (req, res) => {
     console.log(req.body);
     try {
         const updatedPlacementCompanyDetails = await Placement_CompanyDetails.updateOne(
@@ -145,10 +145,11 @@ router.patch('/update-placement_company', async (req, res) => {
                     placement_company_description: req.body.placement_company_description,
                     placement_company_job_role: req.body.placement_company_job_role,
                     placement_company_job_description: req.body.placement_company_job_description,
-                    no_of_students_placed: req.body.no_of_students_placed,
+                    no_of_student_placed: req.body.no_of_student_placed,
                 }
             }
         );
+        console.log(updatedPlacementCompanyDetails);
         res.json(updatedPlacementCompanyDetails);
     }
     catch (err) {
