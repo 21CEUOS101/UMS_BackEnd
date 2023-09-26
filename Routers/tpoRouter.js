@@ -59,6 +59,7 @@ router.get('/getSpecificPlacementCompanyDetails/:placement_company_id', async (r
 
     try {
         const specificCompanyDetails = await Placement_CompanyDetails.findOne({ placement_company_id: req.params.placement_company_id });
+        console.log(specificCompanyDetails);
         res.json(specificCompanyDetails);
     } catch (err) {
         res.json({ message: err });
@@ -146,17 +147,18 @@ router.patch('/update-placement-company', async (req, res) => {
                     placement_company_website: req.body.placement_company_website,
                     placement_company_type: req.body.placement_company_type,
                     placement_company_description: req.body.placement_company_description,
-                    placement_company_job_role: (req.body.placement_company_job_role).split(","),
-                    placement_company_job_description: (req.body.placement_company_job_description).split(","),
-                    no_of_student_placed: req.body.no_of_student_placed,
+                    placement_company_job_role: req.body.placement_company_job_role,
+                    placement_company_job_description: req.body.placement_company_job_description,
+                    no_of_student_placed: req.body.no_of_student_placed
                 }
             }
         );
+        console.log("Hello");
         console.log(updatedPlacementCompanyDetails);
         res.json(updatedPlacementCompanyDetails);
     }
     catch (err) {
-        res.json({ message: err });
+        res.json(err);
     }
 }
 );
