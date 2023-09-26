@@ -1047,7 +1047,7 @@ router.patch("/updateStudentFeesInfo", async (req, res) => {
 router.delete("/delete-student/:id", async (req, res) => {
   try {
     const deleteStudent = await StudentDetails.deleteOne({
-      student_code: req.params.id,
+      student_id: req.params.id,
     });
     res.json({
       message: "Student Deleted Successfully",
