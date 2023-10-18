@@ -61,8 +61,3 @@ To set up UMS locally, follow these steps:
 - Once you've set up the system, log in with the provided demo credentials to explore the UMS.
 - Depending on your role, you'll have access to specific functionalities and features.
 
-## Contributing
-Contributions to UMS are welcome! If you'd like to contribute, please follow our [contributing guidelines](CONTRIBUTING.md).
-
-## License
-This project is licensed under the [MIT License](LICENSE).
