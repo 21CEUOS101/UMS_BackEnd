@@ -2,6 +2,7 @@
 
 ## Table of Contents
 - [About](#about)
+- [Demo](#demo)
 - [Demo Credentials](#demo-credentials)
 - [Features](#features)
 - [Installation](#installation)
@@ -9,10 +10,13 @@
 - [Contributing](#contributing)
 - [License](#license)
 
-## About
+## About 🎓
 The University Management System (UMS) is a robust web-based platform designed to efficiently manage various aspects of university operations, serving the needs of administrators, faculty, and students. This repository hosts the codebase for the UMS.
 
-## Demo Credentials
+## Demo 🚀
+Explore the UMS demo [here](https://dms2901.netlify.app/).
+
+## Demo Credentials 🎫
 To explore the UMS, you can use the following demo login credentials:
 
 - **Admin**
@@ -39,7 +43,7 @@ To explore the UMS, you can use the following demo login credentials:
   - ID: 21CEUON144
   - Password: e8JIR#V$gW
 
-## Features
+## Features ✨
 UMS offers a wide range of features to manage university operations, including but not limited to:
 - User Management
 - Faculty Management
@@ -49,7 +53,7 @@ UMS offers a wide range of features to manage university operations, including b
 - Profile Management (Admin, TPO, TTO, HOD)
 - User Panels tailored to specific user roles
 
-## Installation
+## Installation 🛠️
 To set up UMS locally, follow these steps:
 1. Clone this repository to your local machine.
 2. Install the necessary dependencies using `npm install`.
@@ -57,7 +61,6 @@ To set up UMS locally, follow these steps:
 4. Run the application with `npm start`.
 5. Access UMS in your web browser at `http://localhost:YOUR_PORT`.
 
-## Usage
+## Usage 🖥️
 - Once you've set up the system, log in with the provided demo credentials to explore the UMS.
 - Depending on your role, you'll have access to specific functionalities and features.
-
